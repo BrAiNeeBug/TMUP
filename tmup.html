@@ -321,7 +321,7 @@ function toggleLang() {
   pre#log {
     background: #080a0d;
     padding: 16px;
-    height: 42vh;
+    height: 22vh;
     overflow-y: auto;
     font-size: 12.5px;
     line-height: 1.7;
@@ -362,7 +362,7 @@ function toggleLang() {
   <div>
     <div class="logo">
       <span class="logo-text">TMUP</span>
-      <span class="logo-tag">v1.2</span>
+      <span class="logo-tag">v1.3</span>
     </div>
     <div class="subtitle" data-i18n="subtitle"></div>
   </div>
@@ -530,7 +530,26 @@ window.applyLang = function() {
   refreshButtons();
 };
 
+const PERSIST_FIELDS = ["ipbase", "start", "end", "user", "timeout"];
+
+function saveFields() {
+  PERSIST_FIELDS.forEach(id => {
+    localStorage.setItem("tmup_" + id, document.getElementById(id).value);
+  });
+}
+
+function loadFields() {
+  PERSIST_FIELDS.forEach(id => {
+    const v = localStorage.getItem("tmup_" + id);
+    if (v !== null) document.getElementById(id).value = v;
+  });
+}
+
 window.addEventListener("DOMContentLoaded", () => {
+  loadFields();
+  PERSIST_FIELDS.forEach(id => {
+    document.getElementById(id).addEventListener("input", saveFields);
+  });
   applyLang();
   setStatus(false, "statusIdle");
   appendLog(t("logReady"), "log-head");
