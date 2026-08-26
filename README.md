@@ -4,4 +4,4 @@ All Tasmota Devices need the same Username/PW set and http-api enabled.
 
 Download or open the Update-Gui: [https://braineebug.github.io/TMUP/tmup.html]
 
-Fopen [https://braineebug.github.io/TMUP/tmup.html?ip=192.168.0&start=1&end=254&user=admin&pass=pass]
+Fopen [https://braineebug.github.io/TMUP/tmup.html#ip=192.168.0&start=1&end=254&user=admin&pass=pass]
