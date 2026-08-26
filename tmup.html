@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TMUP — Tasmota Mass Update</title>
+<title>TMUP — 1.4</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script>
 const LANG = {
@@ -362,7 +362,7 @@ function toggleLang() {
   <div>
     <div class="logo">
       <span class="logo-text">TMUP</span>
-      <span class="logo-tag">v1.3</span>
+      <span class="logo-tag">v1.4</span>
     </div>
     <div class="subtitle" data-i18n="subtitle"></div>
   </div>
@@ -479,6 +479,26 @@ async function call(ip, cmd, u, p) {
   });
 }
 
+function getUrlParams() {
+  const params = new URLSearchParams(window.location.search);
+
+  const values = {
+    ipbase: params.get("ip"),
+    start: params.get("start"),
+    end: params.get("end"),
+    user: params.get("user"),
+    pass: params.get("pass"),
+    timeout: params.get("timeout")
+  };
+
+  Object.entries(values).forEach(([id, value]) => {
+    if (value !== null) {
+      const el = document.getElementById(id);
+      if (el) el.value = value;
+    }
+  });
+}
+
 async function update() {
   running  = true;
   stopFlag = false;
@@ -547,6 +567,8 @@ function loadFields() {
 
 window.addEventListener("DOMContentLoaded", () => {
   loadFields();
+  getUrlParams();
+  saveFields();
   PERSIST_FIELDS.forEach(id => {
     document.getElementById(id).addEventListener("input", saveFields);
   });
